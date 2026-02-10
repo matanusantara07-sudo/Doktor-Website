@@ -39,7 +39,7 @@ const config = {
   pingTimeoutMs: 5000,
 
   /** Supported alert types */
-  alertTypes: ['email', 'sms', 'webhook', 'telegram'],
+  alertTypes: ['email', 'sms', 'webhook', 'telegram', 'whatsapp'],
 
   /** Supported analytics metrics */
   analyticsMetrics: ['pageviews', 'sessions', 'bounce_rate', 'avg_duration', 'conversions'],
@@ -49,6 +49,12 @@ const config = {
 
   /** Draft statuses in workflow order */
   draftStatuses: ['draft', 'submitted', 'in_review', 'approved', 'rejected', 'published'],
+
+  /** Emergency operation modes */
+  emergencyModes: ['OBSERVE_ONLY', 'SEMI_AUTOMATION'],
+
+  /** Default emergency mode */
+  emergencyMode: 'SEMI_AUTOMATION',
 };
 
 export default config;

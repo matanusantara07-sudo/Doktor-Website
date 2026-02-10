@@ -23,6 +23,7 @@ import { enableAlert, disableAlert, listAlerts, testAlert } from './modules/aler
 import { restartService, clearCache, reconnectApi, refreshToken, executeFix, listFixes } from './modules/autofix.js';
 import { checkAnalytics, checkAds, checkAdsense, listMetrics } from './modules/analytics.js';
 import { listLogs, filterLogs, exportLogs } from './modules/audit.js';
+import { setMode, backupContent, restoreBackup, listBackups, systemStatus, emergencyShutdown, resumeOperations } from './modules/emergency.js';
 
 /**
  * Command registry: maps command names to handler functions and metadata.
@@ -274,6 +275,50 @@ const COMMANDS = {
     usage: 'EXPORT_LOGS <format>',
     roles: ['Admin_Teknis'],
   },
+
+  // Emergency/Darurat (SOMO)
+  SET_MODE: {
+    handler: (user, args) => setMode(user, args[0]),
+    description: 'Set system operation mode',
+    usage: 'SET_MODE <observe_only|semi_automation|full_automation>',
+    roles: ['Admin_Teknis'],
+  },
+  BACKUP_CONTENT: {
+    handler: (user, args) => backupContent(user, args),
+    description: 'Backup content drafts',
+    usage: 'BACKUP_CONTENT <draft_id_list>',
+    roles: ['Admin_Teknis'],
+  },
+  RESTORE_BACKUP: {
+    handler: (user, args) => restoreBackup(user, args[0]),
+    description: 'Restore content from backup',
+    usage: 'RESTORE_BACKUP <backup_id>',
+    roles: ['Admin_Teknis'],
+  },
+  LIST_BACKUPS: {
+    handler: (user) => listBackups(),
+    description: 'List all content backups',
+    usage: 'LIST_BACKUPS',
+    roles: ['Admin_Teknis'],
+  },
+  SYSTEM_STATUS: {
+    handler: (user) => systemStatus(user),
+    description: 'Check emergency system status',
+    usage: 'SYSTEM_STATUS',
+    roles: ['Admin_Teknis'],
+  },
+  EMERGENCY_SHUTDOWN: {
+    handler: (user) => emergencyShutdown(user),
+    description: 'Emergency shutdown - disable all automation',
+    usage: 'EMERGENCY_SHUTDOWN',
+    roles: ['Admin_Teknis'],
+  },
+  RESUME_OPERATIONS: {
+    handler: (user) => resumeOperations(user),
+    description: 'Resume normal operations',
+    usage: 'RESUME_OPERATIONS',
+    roles: ['Admin_Teknis'],
+  },
 };
 
 function printHelp() {
@@ -305,6 +350,7 @@ Available Commands:
     'Auto-Fix': ['RESTART_SERVICE', 'CLEAR_CACHE', 'RECONNECT_API', 'REFRESH_TOKEN', 'EXECUTE_FIX', 'LIST_FIXES'],
     'Analytics': ['CHECK_ANALYTICS', 'CHECK_ADS', 'CHECK_ADSENSE', 'LIST_METRICS'],
     'Audit': ['LIST_LOGS', 'FILTER_LOGS', 'EXPORT_LOGS'],
+    'Emergency/Darurat': ['SET_MODE', 'BACKUP_CONTENT', 'RESTORE_BACKUP', 'LIST_BACKUPS', 'SYSTEM_STATUS', 'EMERGENCY_SHUTDOWN', 'RESUME_OPERATIONS'],
   };
 
   for (const [category, cmds] of Object.entries(categories)) {

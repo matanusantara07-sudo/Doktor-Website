@@ -19,13 +19,24 @@ function collectionPath(name) {
 
 const db = {
   /**
-   * Read an entire collection. Returns an array.
-   * @param {string} name - Collection name (e.g. 'users', 'drafts')
-   * @returns {Array}
+   * Read an entire collection. Returns an array or object (for settings).
+   * @param {string} name - Collection name (e.g. 'users', 'drafts', 'settings')
+   * @returns {Array|Object}
    */
   read(name) {
     ensureDataDir();
     const fp = collectionPath(name);
+    // Settings is an object, not an array
+    if (name === 'settings') {
+      if (!fs.existsSync(fp)) return {};
+      const raw = fs.readFileSync(fp, 'utf-8');
+      try {
+        return JSON.parse(raw);
+      } catch {
+        return {};
+      }
+    }
+    // All other collections are arrays
     if (!fs.existsSync(fp)) return [];
     const raw = fs.readFileSync(fp, 'utf-8');
     try {
@@ -38,7 +49,7 @@ const db = {
   /**
    * Write an entire collection (replaces file contents).
    * @param {string} name
-   * @param {Array} data
+   * @param {Array|Object} data
    */
   write(name, data) {
     ensureDataDir();

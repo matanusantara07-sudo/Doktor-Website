@@ -81,6 +81,20 @@ function seed() {
     console.log('  – User "pemred1" already exists, skipping.');
   }
 
+  // Initialize backups collection if not exists
+  const backups = db.read('backups');
+  if (backups.length === 0) {
+    console.log('  ✓ Initialized backups collection');
+  }
+
+  // Initialize settings with default system mode
+  const settings = db.read('settings');
+  if (!settings.systemMode) {
+    settings.systemMode = 'full_automation';
+    db.write('settings', settings);
+    console.log('  ✓ Initialized system settings (mode: full_automation)');
+  }
+
   console.log('\n✅ Seed complete. Default password for all users: "' + config.defaultPassword + '"');
   console.log('   Run: node src/index.js --user admin LIST_USERS\n');
 }
