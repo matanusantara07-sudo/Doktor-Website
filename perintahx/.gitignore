@@ -1,0 +1,33 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+.venv/
+venv/
+ENV/
+env/
+
+# Logs and data
+audit.log.jsonl
+*.log
+
+# Kill switch
+KILL_SWITCH
+
+# Config (may contain secrets)
+config.yaml
+# Uncomment if you want to track config (be careful with credentials!)
+# !config.yaml
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
