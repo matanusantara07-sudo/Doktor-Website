@@ -1,0 +1,28 @@
+{
+  "name": "doktor-website",
+  "version": "1.0.0",
+  "description": "Aplikasi Alat Service Website Media Online - Comprehensive media management CLI system with RBAC, content workflow, social media publishing, WordPress integration, server monitoring, alerts, auto-fix engine, analytics, and audit logging.",
+  "main": "src/index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node src/index.js",
+    "test": "node --test tests/**/*.test.js",
+    "seed": "node src/seed.js",
+    "help": "node src/index.js --help"
+  },
+  "keywords": [
+    "media",
+    "cms",
+    "monitoring",
+    "wordpress",
+    "social-media",
+    "analytics",
+    "audit",
+    "rbac"
+  ],
+  "author": "matanusantara07-sudo",
+  "license": "MIT",
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
